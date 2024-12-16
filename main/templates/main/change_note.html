@@ -1,0 +1,18 @@
+{% extends "main/main.html" %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div>
+        <h5 class="mb-1">Название</h5>
+        <input name="title" class="form-control" value={{note.title}}>
+        </div>
+        <div>
+            <p class="mb-1">Контекст</p>
+            <textarea name="context" cols="40" rows="10" maxlength="2000" >{{note.context}}</textarea>
+        </div>
+        <button class='btn btn-primary m-2' type='submit'>Записать</button>
+    </form>
+    <a class='btn btn-secondary m-2'  href="{% url 'notes' %}">Заметки</a>
+
+{% endblock content %}

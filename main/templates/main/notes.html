@@ -1,0 +1,47 @@
+{% extends "main/main.html" %}
+
+{% block content %}
+<ul class="list-group">
+{% for note in notes  %}
+    <li class="list-group-item m-1">
+        <h5 class="mb-1">{{ note.title }}</h5>
+        <p class="mb-1">{{ note.context }}</p>
+        <a class='btn btn-secondary m-2'  href="{% url 'change_note' pk=note.pk %}">Изменить</a>
+        <a class='btn btn-danger m-2 delete-note-btn'  href="{% url 'delete_note' pk=note.pk %}">Удалить</a>
+    </li>
+    {% endfor %}
+</ul>
+<a class='btn btn-secondary m-2'  href="/">Добавить заметку</a>
+
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmModalLabel">Подтверждение удаления</h5>
+        </div>
+        <div class="modal-body">
+          Вы уверены, что хотите отменить этот заказ?
+        </div>
+        <div class="modal-footer row">
+            <button type="button" class="btn btn-secondary col" data-bs-dismiss="modal">Отмена</button>
+          <a id="deleteConfirmBtn" href="" class="btn btn-danger col" onclick="saveScrollPosition()">Удалить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block scripts%}
+
+<script>
+    $(document).ready(function() {
+        $('.delete-note-btn').click(function(e) {
+          e.preventDefault();
+          var deleteUrl = $(this).attr('href');
+          $('#deleteConfirmBtn').attr('href', deleteUrl);
+          $('#deleteConfirmModal').modal('show');
+        });
+      }); 
+    </script>
+{% endblock scripts%}
