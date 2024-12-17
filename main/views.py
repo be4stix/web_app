@@ -44,3 +44,4 @@ def delete_note(request, pk):
     note = Note.objects.get(pk=pk)
     note.delete()
     return redirect('notes')
+
